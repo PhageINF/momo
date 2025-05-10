@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>小数乘法奇趣探险：0.3 × 50 的奥秘</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=ZCOOL+XiaoWei&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: 'ZCOOL XiaoWei', sans-serif;
+            font-family: 'Roboto', 'Arial', sans-serif;
             background-color: #f0f9ff; /* 淡蓝天空背景 */
             color: #075985; /* 深蓝文字 */
         }
@@ -84,6 +84,18 @@
             transition: transform 0.5s ease-in-out, color 0.5s ease-in-out;
             padding: 0 0.1em;
         }
+        .audio-player-container {
+            background-color: #e0f2fe; /* 淡蓝背景 */
+            padding: 1rem;
+            border-radius: 0.75rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            border: 1px solid #bae6fd;
+        }
+        .audio-player-container audio {
+            width: 100%;
+            max-width: 500px;
+        }
         .fade-in {
             animation: fadeIn 1s ease-out forwards;
         }
@@ -114,6 +126,14 @@
             <p class="text-2xl text-sky-600 mt-2">解开 <span class="font-bold">0.3 × 50</span> 的奥秘！</p>
         </header>
 
+        <div class="audio-player-container">
+            <p class="text-lg font-semibold text-sky-700 mb-2">听杨泽天讲鸡蛋的故事！</p>
+            <audio id="storyAudio" controls src="audio.m4a">
+                您的浏览器不支持播放音频。
+            </audio>
+            <p class="text-xs text-slate-500 mt-1">(如果无法播放，请检查音频文件路径是否正确)</p>
+        </div>
+
         <div id="story-intro" class="content-card fade-in">
             <p class="text-lg leading-relaxed">亲爱的小探险家，你好！今天，我们要和杨泽天同学一起，去鸡蛋市场进行一次数学探险！他遇到了一个问题：鸡蛋每颗 <span class="font-bold text-orange-500">0.3元</span>，买 <span class="font-bold text-orange-500">50颗</span> 一共需要多少钱呢？也就是计算 <span class="font-bold text-orange-500">0.3 × 50 = ?</span></p>
             <p class="mt-4 text-lg">别担心，我们将一步一步揭开小数乘法的神秘面纱，让数学变得像寻宝一样有趣！准备好了吗？</p>
@@ -124,11 +144,11 @@
 
         <div id="step-1" class="content-card hidden">
             <h2 class="step-title">第一站：认识新朋友 0.3元</h2>
-            <p class="text-lg">首先，我们来看看“0.3元”。这是什么意思呢？在我们国家，1元等于10角。那么，“0.3元”就是 <span class="font-bold text-green-600">3角</span> 钱！</p>
+            <p class="text-lg">首先，我们来看看"0.3元"。这是什么意思呢？在我们国家，1元等于10角。那么，"0.3元"就是 <span class="font-bold text-green-600">3角</span> 钱！</p>
             <div id="coins-visualization" class="my-6 text-center">
                 </div>
             <div class="hint-box">
-                <strong>小提示：</strong> 想想看，0.3元用我们平时买东西说的“角”怎么表示呢？是不是一下子就熟悉多啦？
+                <strong>小提示：</strong> 想想看，0.3元用我们平时买东西说的"角"怎么表示呢？是不是一下子就熟悉多啦？
             </div>
             <div class="text-center mt-8">
                 <button class="btn-primary next-step">下一站！</button>
@@ -140,10 +160,10 @@
             <p class="text-lg">杨泽天把鸡蛋分成了几盒，每盒有10颗。一颗鸡蛋0.3元，那一盒（10颗）鸡蛋是多少钱呢？就是算 <span class="font-bold text-purple-600">0.3 × 10</span>。</p>
             
             <div class="my-6">
-                <h3 class="font-ma-shan text-2xl text-sky-700 mb-2">方法一：用“角”来帮忙！</h3>
+                <h3 class="font-ma-shan text-2xl text-sky-700 mb-2">方法一：用"角"来帮忙！</h3>
                 <p>0.3元是3角。那么 0.3元 × 10 就等于 <span id="jiaoCalc" class="font-bold text-red-500">3角 × 10 = ?</span></p>
                 <div id="jiao-multiply-animation" class="my-4 p-4 bg-sky-50 rounded-lg text-center">
-                    <p>想象一下，10次“3角钱”...</p>
+                    <p>想象一下，10次"3角钱"...</p>
                 </div>
                 <p class="text-center text-xl font-bold text-green-600 hidden" id="jiaoResult">所以，0.3 × 10 = 3元！</p>
             </div>
@@ -221,7 +241,7 @@
                 <li><span class="font-bold">数位点一点：</span>看原来的小数有几位小数，就在乘积中从右往左数出几位，点上小数点。（如果位数不够，用0在前面补足哦！）</li>
             </ol>
             <div class="hint-box">
-                <strong>小提示：</strong> 记住这三步曲：“变整数，算乘积，点回点”，小数乘法就不难啦！
+                <strong>小提示：</strong> 记住这三步曲："变整数，算乘积，点回点"，小数乘法就不难啦！
             </div>
             <div class="text-center mt-8">
                 <button class="btn-primary next-step">学到了！</button>
@@ -230,14 +250,14 @@
 
         <div id="step-5" class="content-card hidden">
             <h2 class="step-title">第五站：智慧的火花</h2>
-            <p class="text-lg">小朋友，解决杨泽天的问题，我们不仅学会了小数乘法，更重要的是，发现了学习数学的“小窍门”：</p>
+            <p class="text-lg">小朋友，解决杨泽天的问题，我们不仅学会了小数乘法，更重要的是，发现了学习数学的"小窍门"：</p>
             <ul class="list-disc list-inside text-lg space-y-3 my-4 bg-amber-50 p-6 rounded-lg">
                 <li><span class="font-bold text-amber-700">数学就在身边：</span>多观察生活，数学很有趣！</li>
                 <li><span class="font-bold text-amber-700">动手画一画：</span>画图能帮我们理解问题。</li>
                 <li><span class="font-bold text-amber-700">大问题变小：</span>把复杂问题分解成简单的小问题。</li>
                 <li><span class="font-bold text-amber-700">寻找规律：</span>发现规律能让计算更快捷！</li>
                 <li><span class="font-bold text-amber-700">条条大路通罗马：</span>一个问题可以有多种解法。</li>
-                <li><span class="font-bold text-amber-700">明白“为什么”：</span>理解原理比死记硬背更重要。</li>
+                <li><span class="font-bold text-amber-700">明白"为什么"：</span>理解原理比死记硬背更重要。</li>
                 <li><span class="font-bold text-amber-700">练习是好朋友：</span>多练习才能熟练。</li>
                 <li><span class="font-bold text-amber-700">不怕犯错误：</span>错误是进步的机会。</li>
                 <li><span class="font-bold text-amber-700">勇敢提问：</span>不懂就问，通向知识的大门。</li>
@@ -339,7 +359,7 @@
             
             jiaoResultEl.classList.add('hidden');
             jiaoCalcEl.innerHTML = '3角 × 10 = <span class="text-gray-400">?</span>';
-            jiaoMultiplyAnimationEl.innerHTML = '<p>1颗蛋0.3元(3角), 10颗蛋就是10个“3角”...</p>';
+            jiaoMultiplyAnimationEl.innerHTML = '<p>1颗蛋0.3元(3角), 10颗蛋就是10个"3角"...</p>';
             
             setTimeout(() => {
                 jiaoMultiplyAnimationEl.innerHTML = '<p class="pop-in">3角, 6角, 9角 ... 一共是 <span class="font-bold text-red-500">30角</span>!</p>';
