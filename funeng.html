@@ -16,20 +16,20 @@
             padding-top: 60px; /* Add padding to body to prevent content from being hidden by sticky header */
         }
         .header-sticky {
-            position: fixed; /* Changed from sticky to fixed for simplicity with body padding */
+            position: fixed; 
             top: 0;
             left: 0;
             right: 0;
             z-index: 50;
-            background-color: white; /* Ensure header has a background */
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Add shadow for better separation */
+            background-color: white; 
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1); 
         }
         .audio-player-sticky {
             position: sticky;
             top: 60px; /* Height of the header */
-            z-index: 49; /* Below header, above content */
-            background-color: #f8fafc; /* Light gray background for player */
-            padding: 0.75rem 1rem; /* Tailwind p-3 equivalent */
+            z-index: 49; 
+            background-color: #f8fafc; 
+            padding: 0.75rem 1rem; 
             box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
 
@@ -41,7 +41,7 @@
             font-weight: 500;
         }
         .nav-item:hover, .nav-item.active {
-            background-color: #38bdf8; /* 亮蓝色 */
+            background-color: #38bdf8; 
             color: white;
         }
         .nav-item.active {
@@ -54,7 +54,8 @@
             background-color: white;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
             animation: fadeIn 0.7s ease-out;
-            margin-top: 20px;
+            margin-top: 20px; 
+            margin-bottom: 80px; /* Add margin to bottom to prevent overlap with chapter nav */
         }
         .page-content.active {
             display: block;
@@ -76,7 +77,7 @@
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
         }
         h1, h2, h3 {
-            color: #0f769e; /* 主题蓝色 */
+            color: #0f769e; 
             font-weight: 600;
         }
         h1 { font-size: 2.25rem; margin-bottom: 1.5rem; text-align: center; }
@@ -98,7 +99,7 @@
             line-height: 1.7;
         }
         ul li::before {
-            content: "\f00c"; /* Font Awesome check icon */
+            content: "\f00c"; 
             font-family: "Font Awesome 6 Free";
             font-weight: 900;
             color: #38bdf8;
@@ -111,7 +112,7 @@
             transform: scale(1.2);
         }
         .button-primary {
-            background-color: #0ea5e9; /* 亮天空蓝 */
+            background-color: #0ea5e9; 
             color: white;
             padding: 10px 20px;
             border-radius: 8px;
@@ -122,7 +123,7 @@
             cursor: pointer;
         }
         .button-primary:hover {
-            background-color: #0284c7; /* 深天空蓝 */
+            background-color: #0284c7; 
             transform: translateY(-2px);
         }
         .button-secondary {
@@ -153,7 +154,7 @@
             margin-bottom: 1rem;
         }
         .hero-section p {
-            color: #e0f2fe; /* 淡蓝白色 */
+            color: #e0f2fe; 
             font-size: 1.125rem;
             max-width: 700px;
             margin: 0 auto 1.5rem auto;
@@ -162,11 +163,11 @@
             text-align: center;
             padding: 20px;
             margin-top: 30px;
-            color: #64748b; /* 蓝灰色 */
+            color: #64748b; 
             font-size: 0.875rem;
-            border-top: 1px solid #e2e8f0; /* 淡灰色分割线 */
+            border-top: 1px solid #e2e8f0; 
         }
-        /* 移动端导航栏样式 */
+        
         #mobile-menu-button {
             display: none; 
         }
@@ -176,7 +177,7 @@
             width: 100%;
             background-color: #0f769e; 
             position: absolute;
-            top: 100%; /* Position below the header */
+            top: 100%; 
             left: 0;
             z-index: 40; 
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
@@ -194,7 +195,6 @@
             background-color: #38bdf8; 
         }
 
-        /* 冷静一刻 模态框样式 */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -274,10 +274,10 @@
             margin-left: 10px; 
         }
         .calm-down-button-header {
-            background-color: #f59e0b; 
+            background-color: #22c55e; 
         }
         .calm-down-button-header:hover {
-            background-color: #d97706; 
+            background-color: #16a34a; 
         }
         
         .home-reminder-section {
@@ -318,31 +318,23 @@
             margin-bottom: 0.5rem;
         }
 
-        /* Custom Audio Player Styles */
-        #customAudioPlayerContainer {
-            /* background-color: #f8fafc; /* Light gray background */
-            /* padding: 0.75rem 1rem; */
-            /* box-shadow: 0 -2px 5px rgba(0,0,0,0.05); */ /* Shadow for top sticky player */
-            /* position: sticky; */ /* Make it sticky */
-            /* top: 60px; */ /* Stick below the 60px fixed header */
-            /* z-index: 49; */ /* Ensure it's above content but below header */
-        }
+        #customAudioPlayerContainer { }
         #customAudioPlayerContainer button {
             background: none;
             border: none;
             cursor: pointer;
-            color: #0ea5e9; /* Sky blue for controls */
+            color: #0ea5e9; 
             transition: color 0.2s ease;
         }
         #customAudioPlayerContainer button:hover {
-            color: #0284c7; /* Darker sky blue */
+            color: #0284c7; 
         }
         #seekBar {
             height: 8px;
             -webkit-appearance: none;
             appearance: none;
-            background: #e5e7eb; /* Gray track */
-            border-radius: 9999px; /* Pill shape */
+            background: #e5e7eb; 
+            border-radius: 9999px; 
             outline: none;
             width: 100%;
         }
@@ -351,7 +343,7 @@
             appearance: none;
             width: 16px;
             height: 16px;
-            background: #0ea5e9; /* Sky blue thumb */
+            background: #0ea5e9; 
             border-radius: 50%;
             cursor: pointer;
         }
@@ -365,18 +357,64 @@
         }
         #playbackSpeedSelect {
             background-color: white;
-            border: 1px solid #d1d5db; /* Gray border */
+            border: 1px solid #d1d5db; 
             border-radius: 6px;
             padding: 4px 8px;
             font-size: 0.875rem;
-            color: #374151; /* Dark gray text */
+            color: #374151; 
+        }
+
+        /* Chapter Bottom Navigation Styles */
+        .chapter-bottom-nav-container {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: #ffffff;
+            padding: 10px 15px;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+            z-index: 48; 
+            display: none; 
+        }
+        .chapter-bottom-nav-container.visible {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .chapter-nav-button {
+            background-color: #38bdf8;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: background-color 0.3s ease, opacity 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-grow: 1; 
+            margin: 0 5px; 
+        }
+        .chapter-nav-button:hover {
+            background-color: #0f769e;
+        }
+        .chapter-nav-button.disabled {
+            background-color: #cbd5e1; 
+            color: #64748b;
+            cursor: not-allowed;
+            opacity: 0.8;
+        }
+        .chapter-nav-button i {
+            font-size: 0.8rem; 
         }
 
 
         @media (max-width: 768px) {
-            body { padding-top: 50px; } /* Adjust for potentially smaller mobile header */
-            .header-sticky { height: 50px; } /* If header height is fixed for mobile */
-            .audio-player-sticky { top: 50px; } /* Stick below mobile header */
+            body { padding-top: 50px; } 
+            .header-sticky { height: 50px; } 
+            .audio-player-sticky { top: 50px; } 
 
             #desktop-nav {
                 display: none; 
@@ -410,20 +448,26 @@
             #mobile-nav-items .calm-down-button-header:hover {
                  background-color: #d97706;
             }
-            /* Remove mobile audio player button from nav items if it was there */
-
+            
             .home-reminder-section h2 {
                 font-size: 1.5rem;
             }
             .home-reminder-section p {
                 font-size: 1rem;
             }
-            #customAudioPlayerContainer .flex.items-center.justify-between > .flex.items-center { /* Playback speed container */
-                margin-left: 0.5rem; /* Add some space on mobile */
+            #customAudioPlayerContainer .flex.items-center.justify-between > .flex.items-center { 
+                margin-left: 0.5rem; 
             }
-            #customAudioPlayerContainer .flex-grow.mx-4 { /* Seekbar container */
+            #customAudioPlayerContainer .flex-grow.mx-4 { 
                 margin-left: 0.5rem;
                 margin-right: 0.5rem;
+            }
+            .chapter-nav-button {
+                padding: 8px 10px; 
+                font-size: 0.85rem;
+            }
+            .page-content {
+                 margin-bottom: 70px; 
             }
         }
     </style>
@@ -435,7 +479,7 @@
             <div class="text-2xl font-bold text-[#0f769e]">
                 <i class="fas fa-hands-helping mr-2"></i>赋能母爱之旅
             </div>
-            <nav id="desktop-nav" class="hidden md:flex items-center space-x-2">
+            <nav id="desktop-nav" class="hidden md:flex items-center space-x-2"> 
                 <a class="nav-item active" onclick="showPage('home')">首页</a>
                 <a class="nav-item" onclick="showPage('empowerment')">理解赋能</a>
                 <a class="nav-item" onclick="showPage('boysWorld')">男孩的内心</a>
@@ -872,6 +916,15 @@
         </div>
     </main>
 
+    <div id="chapterBottomNav" class="chapter-bottom-nav-container">
+        <button id="prevChapterBtn" class="chapter-nav-button">
+            <i class="fas fa-arrow-left mr-2"></i>上一章
+        </button>
+        <button id="nextChapterBtn" class="chapter-nav-button">
+            下一章<i class="fas fa-arrow-right ml-2"></i>
+        </button>
+    </div>
+
     <div id="calmDownModal" class="modal-overlay">
         <div class="modal-content relative">
             <i class="fas fa-times modal-close-button" onclick="closeCalmDownModal()"></i>
@@ -883,7 +936,7 @@
                     <span id="breathingText">开始</span>
                 </div>
                 <p id="breathingInstruction" class="text-sm text-gray-600 mt-2">点击下方按钮开始练习 (4秒吸气 - 4秒保持 - 6秒呼气)</p>
-                <button id="startBreathingBtn" class="button-primary mt-3" onclick="startBreathingExercise()">开始练习</button>
+                <button id="startBreathingBtn" class="button-primary mt-3" onclick="startBreathingCycle()">开始练习</button>
             </div>
 
             <div class="mb-8">
@@ -900,12 +953,12 @@
         </div>
     </div>
 
-    <footer class="footer">
-        <p>&copy; 2025 赋能母亲，启迪男孩成长。保留所有权利。</p>
-        <p>本内容基于《赋能母亲，启迪男孩成长》文档编制，旨在提供学习与参考。</p>
-    </footer>
-
     <script>
+        const chapterOrder = ['empowerment', 'boysWorld', 'emotionsLearning', 'feedback', 'unconditionalLove', 'selfCare', 'guide', 'myths'];
+        const chapterBottomNav = document.getElementById('chapterBottomNav');
+        const prevChapterBtn = document.getElementById('prevChapterBtn');
+        const nextChapterBtn = document.getElementById('nextChapterBtn');
+
         // 页面切换函数
         function showPage(pageId) {
             const pages = document.querySelectorAll('.page-content');
@@ -933,7 +986,40 @@
                 }
             });
             window.scrollTo(0, 0);
+            updateChapterBottomNav(pageId); // Update bottom nav on page change
         }
+
+        function updateChapterBottomNav(currentPageId) {
+            if (!chapterBottomNav || !prevChapterBtn || !nextChapterBtn) return;
+
+            const currentIndex = chapterOrder.indexOf(currentPageId);
+
+            if (currentIndex === -1 || currentPageId === 'home') { // Not a chapter page or home page
+                chapterBottomNav.classList.remove('visible');
+                return;
+            }
+
+            chapterBottomNav.classList.add('visible');
+
+            // Previous Chapter Button
+            if (currentIndex > 0) {
+                prevChapterBtn.classList.remove('disabled');
+                prevChapterBtn.onclick = () => showPage(chapterOrder[currentIndex - 1]);
+            } else {
+                prevChapterBtn.classList.add('disabled');
+                prevChapterBtn.onclick = null;
+            }
+
+            // Next Chapter Button
+            if (currentIndex < chapterOrder.length - 1) {
+                nextChapterBtn.classList.remove('disabled');
+                nextChapterBtn.onclick = () => showPage(chapterOrder[currentIndex + 1]);
+            } else {
+                nextChapterBtn.classList.add('disabled');
+                nextChapterBtn.onclick = null;
+            }
+        }
+
 
         const mobileMenuButton = document.getElementById('mobile-menu-button');
         const mobileNavItems = document.getElementById('mobile-nav-items');
@@ -958,7 +1044,7 @@
 
 
         document.addEventListener('DOMContentLoaded', () => {
-            showPage('home');
+            showPage('home'); // Initial page load
         });
 
         // --- 冷静一刻 模态框功能 ---
@@ -966,7 +1052,7 @@
         const breathingCircle = document.getElementById('breathingCircle');
         const breathingText = document.getElementById('breathingText');
         const breathingInstruction = document.getElementById('breathingInstruction');
-        const startBreathingBtn = document.getElementById('startBreathingBtn');
+        const startBreathingBtn = document.getElementById('startBreathingBtn'); // Renamed from startBreathingExercise
         const affirmationTextElement = document.getElementById('affirmationText');
 
         const affirmations = [
@@ -980,11 +1066,58 @@
         ];
         let currentAffirmationIndex = 0;
         let breathingTimeout1, breathingTimeout2, breathingTimeout3, breathingTimeout4; 
+        let audioCtx; 
+        let isBreathingExerciseActive = false; // Flag to control the loop
+
+        // Function to play a simple tone
+        function playTone(frequency, duration, type = 'sine', callback) {
+            if (!audioCtx) {
+                try {
+                    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                } catch (e) {
+                    console.warn("Web Audio API is not supported in this browser.");
+                    if (callback) callback(); 
+                    return;
+                }
+            }
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume().then(() => {
+                    // console.log("AudioContext resumed successfully for tone.");
+                    _playToneInternal(frequency, duration, type, callback);
+                }).catch(e => {
+                    console.error("Error resuming AudioContext for tone:", e);
+                     if (callback) callback(); 
+                });
+            } else {
+                _playToneInternal(frequency, duration, type, callback);
+            }
+        }
+
+        function _playToneInternal(frequency, duration, type, callback) {
+            const oscillator = audioCtx.createOscillator();
+            const gainNode = audioCtx.createGain();
+            oscillator.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+            oscillator.type = type;
+            oscillator.frequency.setValueAtTime(frequency, audioCtx.currentTime);
+            gainNode.gain.setValueAtTime(0, audioCtx.currentTime);
+            gainNode.gain.linearRampToValueAtTime(0.3, audioCtx.currentTime + 0.05); 
+            gainNode.gain.linearRampToValueAtTime(0, audioCtx.currentTime + duration - 0.05); 
+            oscillator.start(audioCtx.currentTime);
+            oscillator.stop(audioCtx.currentTime + duration);
+            oscillator.onended = () => {
+                if (callback) callback();
+            };
+        }
+
 
         function openCalmDownModal() {
             if (calmDownModal) {
                 calmDownModal.classList.add('active');
-                resetBreathingExercise();
+                if (audioCtx && audioCtx.state === 'suspended') {
+                    audioCtx.resume().catch(e => console.error("Error resuming AudioContext on modal open:", e));
+                }
+                resetBreathingExercise(); // This will also set isBreathingExerciseActive to false
                 currentAffirmationIndex = 0;
                 if(affirmationTextElement) {
                     affirmationTextElement.textContent = affirmations[currentAffirmationIndex];
@@ -995,8 +1128,9 @@
         function closeCalmDownModal() {
             if (calmDownModal) {
                 calmDownModal.classList.remove('active');
+                isBreathingExerciseActive = false; // Crucial: stop the loop
                 clearAllBreathingTimeouts();
-                resetBreathingExercise(); 
+                resetBreathingExerciseVisuals(); 
             }
         }
         
@@ -1029,46 +1163,81 @@
             clearTimeout(breathingTimeout4);
         }
 
-        function resetBreathingExercise() {
+        function resetBreathingExerciseVisuals() { // Resets only visuals and button state
             if (breathingCircle) breathingCircle.classList.remove('inhale', 'exhale');
             if (breathingText) breathingText.textContent = "开始";
             if (breathingInstruction) breathingInstruction.textContent = "点击下方按钮开始练习 (4秒吸气 - 4秒保持 - 6秒呼气)";
-            if (startBreathingBtn) startBreathingBtn.disabled = false;
-            clearAllBreathingTimeouts();
+            if (startBreathingBtn) {
+                startBreathingBtn.disabled = false;
+                startBreathingBtn.textContent = "开始练习";
+            }
         }
 
+        function resetBreathingExercise() { // Full reset including stopping the loop
+            isBreathingExerciseActive = false;
+            clearAllBreathingTimeouts();
+            resetBreathingExerciseVisuals();
+        }
 
-        function startBreathingExercise() {
-            if (!breathingCircle || !breathingText || !breathingInstruction || !startBreathingBtn) return;
+        function startBreathingCycle() { // Renamed from startBreathingExercise to avoid confusion
+            if (!isBreathingExerciseActive) { // If called by button click
+                isBreathingExerciseActive = true;
+                if (startBreathingBtn) {
+                    startBreathingBtn.disabled = true;
+                    startBreathingBtn.textContent = "练习中...";
+                }
+            }
             
-            startBreathingBtn.disabled = true;
+            if (!isBreathingExerciseActive) { // Double check in case modal was closed during a timeout
+                resetBreathingExerciseVisuals();
+                return;
+            }
+
+            if (!breathingCircle || !breathingText || !breathingInstruction) return;
+            
             clearAllBreathingTimeouts(); 
 
             breathingInstruction.textContent = "请跟随提示进行...";
             
-            breathingText.textContent = "准备";
+            breathingText.textContent = "";
+            // playTone(300, 0.3, 'triangle'); 
             breathingCircle.classList.remove('inhale', 'exhale'); 
 
             breathingTimeout1 = setTimeout(() => {
+                if (!isBreathingExerciseActive) { resetBreathingExerciseVisuals(); return; }
                 breathingText.textContent = "吸气";
+                playTone(440, 0.3, 'sine'); 
                 breathingCircle.classList.add('inhale');
                 breathingCircle.classList.remove('exhale');
                 
                 breathingTimeout2 = setTimeout(() => {
+                    if (!isBreathingExerciseActive) { resetBreathingExerciseVisuals(); return; }
                     breathingText.textContent = "保持";
+                    playTone(330, 0.3, 'square'); 
                     
                     breathingTimeout3 = setTimeout(() => {
+                        if (!isBreathingExerciseActive) { resetBreathingExerciseVisuals(); return; }
                         breathingText.textContent = "呼气";
+                        playTone(220, 0.3, 'sawtooth'); 
                         breathingCircle.classList.remove('inhale');
                         breathingCircle.classList.add('exhale'); 
                                                
                         breathingTimeout4 = setTimeout(() => {
-                            resetBreathingExercise();
+                            if (isBreathingExerciseActive) {
+                                startBreathingCycle(); // Loop back if still active
+                            } else {
+                                resetBreathingExerciseVisuals();
+                            }
                         }, 6000); 
                     }, 4000); 
                 }, 4000); 
             }, 1000); 
         }
+        // Attach the new cycle starter to the button
+        if (startBreathingBtn) {
+            startBreathingBtn.onclick = startBreathingCycle;
+        }
+
 
         // --- 全局音频播放器功能 ---
         const audioElement = document.getElementById('globalAudioPlayer');
@@ -1085,7 +1254,6 @@
         }
 
         if (audioElement && audioPlayPauseBtn && seekBar && currentTimeDisplay && totalTimeDisplay && playbackSpeedSelect) {
-            // Toggle Play/Pause
             audioPlayPauseBtn.addEventListener('click', () => {
                 if (audioElement.paused || audioElement.ended) {
                     audioElement.play().catch(e => console.error("Error playing audio:", e));
@@ -1094,7 +1262,6 @@
                 }
             });
 
-            // Update Play/Pause button icon
             audioElement.addEventListener('play', () => {
                 audioPlayPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
             });
@@ -1103,34 +1270,31 @@
             });
             audioElement.addEventListener('ended', () => {
                 audioPlayPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
-                seekBar.value = 0; // Reset seek bar on end
+                seekBar.value = 0; 
                 currentTimeDisplay.textContent = formatTime(0);
             });
 
-            // Update seek bar and time displays
             audioElement.addEventListener('loadedmetadata', () => {
                 totalTimeDisplay.textContent = formatTime(audioElement.duration);
                 seekBar.max = audioElement.duration;
             });
             audioElement.addEventListener('timeupdate', () => {
                 currentTimeDisplay.textContent = formatTime(audioElement.currentTime);
-                seekBar.value = audioElement.currentTime;
+                if (!audioElement.seeking) { 
+                    seekBar.value = audioElement.currentTime;
+                }
             });
 
-            // Seek bar functionality
             seekBar.addEventListener('input', () => {
                 audioElement.currentTime = seekBar.value;
             });
 
-            // Playback speed
             playbackSpeedSelect.addEventListener('change', () => {
                 audioElement.playbackRate = parseFloat(playbackSpeedSelect.value);
             });
         } else {
             console.warn("One or more audio player elements are missing from the DOM.");
         }
-
-
     </script>
 </body>
 </html>
