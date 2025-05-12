@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>交互式篮球24秒规则讲解 - 深度思考版</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f9ff; /* 更柔和的淡蓝色背景 */
+        }
+        .content-card {
+            background-color: white;
+            border-radius: 16px; /* 更圆润的卡片 */
+            padding: 28px; /* 稍大内边距 */
+            margin-bottom: 24px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08); /* 柔和阴影 */
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInSlideUp 0.6s ease-out forwards;
+        }
+        .content-card:hover {
+            transform: translateY(-6px) scale(1.02);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+        }
+        @keyframes fadeInSlideUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .question-title {
+            font-size: 1.6rem; /* 稍大标题 */
+            font-weight: 700;
+            color: #0c4a6e; /* 深蓝文字 */
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+        .question-title svg { /* 图标样式 */
+            width: 28px;
+            height: 28px;
+            margin-right: 10px;
+            color: #38bdf8; /* 亮蓝色图标 */
+        }
+        .explanation-text {
+            font-size: 1.05rem; /* 稍大正文 */
+            color: #374151; /* 深灰文字 */
+            line-height: 1.8;
+            margin-bottom: 18px;
+        }
+        .thinking-process-item {
+            background-color: #f0f9ff; /* 淡蓝背景 */
+            border-left: 4px solid #38bdf8; /* 亮蓝左边框 */
+            padding: 12px 16px;
+            margin-bottom: 12px;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            color: #1e3a8a; /* 较深蓝文字 */
+            opacity: 0;
+            transform: translateX(-20px);
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+        }
+        .thinking-process-item.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .answer-text {
+            font-size: 1.2rem; /* 稍大答案文字 */
+            font-weight: 700; /* 加粗 */
+            color: #065f46; /* 深绿色 */
+            padding: 14px;
+            background-color: #ccefe8; /* 更柔和的浅绿色 */
+            border-radius: 8px;
+            margin-top: 16px;
+            display: inline-block;
+            border: 2px solid #6ee7b7; /* 绿色边框 */
+        }
+        .interactive-button {
+            background-image: linear-gradient(to right, #3b82f6, #60a5fa); /* 渐变蓝 */
+            color: white;
+            font-weight: 600;
+            padding: 14px 28px;
+            border-radius: 30px; /* 胶囊按钮 */
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            outline: none;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        }
+        .interactive-button:hover {
+            background-image: linear-gradient(to right, #2563eb, #3b82f6);
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 6px 16px rgba(59, 130, 246, 0.4);
+        }
+
+        .answer-content {
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            transform: translateY(-10px);
+            transition: max-height 0.7s cubic-bezier(0.4, 0, 0.2, 1), 
+                        opacity 0.5s ease-out 0.1s, 
+                        transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), 
+                        margin-top 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+            margin-top: 0 !important;
+        }
+        .answer-content.visible {
+            max-height: 1200px; /* 넉넉한 최대 높이 */
+            opacity: 1;
+            transform: translateY(0);
+            margin-top: 1.2rem !important;
+        }
+        
+        .fraction-bar-container {
+            width: 100%;
+            height: 40px;
+            background-color: #e0e7ff; /* Light indigo */
+            border-radius: 8px;
+            margin: 20px 0;
+            display: flex;
+            overflow: hidden;
+            border: 1px solid #c7d2fe;
+        }
+        .fraction-bar-fill {
+            height: 100%;
+            background-color: #6366f1; /* Indigo */
+            width: 0%; /* Initial width for animation */
+            transition: width 1s ease-out;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+         .simplification-step {
+            margin: 10px 0;
+            padding: 8px;
+            background-color: #f3f4f6;
+            border-radius: 6px;
+        }
+
+        .unit-block-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            padding: 12px;
+            background-color: #e0f2fe; /* 浅青色背景 */
+            border-radius: 10px;
+        }
+        .unit-block {
+            width: 38px; /* 稍大方块 */
+            height: 38px;
+            border: 2px solid #a5f3fc; /* 青色边框 */
+            border-radius: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #0e7490; /* 深青色文字 */
+            background-color: #f0f9ff; /* 极浅蓝背景 */
+            opacity: 0;
+            transform: scale(0.3) rotate(-20deg);
+            transition: opacity 0.5s ease-out, 
+                        transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), /* 回弹效果 */
+                        background-color 0.6s ease-in-out, 
+                        border-color 0.6s ease-in-out,
+                        color 0.6s ease-in-out;
+        }
+        .unit-block.visible {
+            opacity: 1;
+            transform: scale(1) rotate(0deg);
+        }
+        .unit-block.filled {
+            background-color: #22d3ee; /* 亮青色 */
+            border-color: #06b6d4; /* 深亮青色 */
+            color: white;
+        }
+        .unit-block.added {
+            background-color: #34d399; /* 翡翠绿 */
+            border-color: #10b981; /* 深翡翠绿 */
+            color: white;
+        }
+        .unit-block.target-empty { /* 用于问题三初始的空目标块 */
+            background-color: #e0e7ff; /* 淡紫色 */
+            border-color: #a5b4fc; /* 稍深淡紫色 */
+            color: #4338ca; /* 深紫色文字 */
+        }
+
+        .message-box-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.65); display: flex; justify-content: center; align-items: center; z-index: 1000; opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease; }
+        .message-box-overlay.visible { opacity: 1; visibility: visible; }
+        .message-box { background-color: white; padding: 35px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); text-align: center; max-width: 420px; width: 90%; }
+        .message-box h3 { font-size: 1.6rem; color: #1e40af; margin-bottom: 18px; }
+        .message-box p { font-size: 1.05rem; color: #374151; margin-bottom: 28px; }
+        .message-box button { background-color: #2563eb; color: white; padding: 14px 28px; border: none; border-radius: 30px; font-size: 1rem; cursor: pointer; transition: background-color 0.2s ease; }
+        .message-box button:hover { background-color: #1d4ed8; }
+
+    </style>
+</head>
+<body class="p-4 md:p-8">
+
+    <div class="max-w-3xl mx-auto">
+        <header class="mb-10 text-center content-card" style="animation-delay: 0s;">
+            <h1 class="text-3xl md:text-4xl font-bold text-sky-700">🏀 篮球24秒规则与小数探秘 🤔</h1>
+            <p class="text-slate-600 mt-3 text-lg">一步一步，解开数学的奥秘！</p>
+        </header>
+
+        <div class="content-card" style="animation-delay: 0.1s;">
+             <h2 class="question-title">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 5.25h.008v.008H12v-.008Z" /></svg>
+                什么是篮球“24秒进攻”规则？
+            </h2>
+            <p class="explanation-text">
+                在篮球比赛中，当一支队伍获得球权后（从接触球的那一刻开始算起），他们必须在<strong>24秒</strong>内尝试投篮进攻。如果超过24秒没有投篮，就会被判“24秒进攻违例”，球权就要交给对方了。这个规则是为了让比赛节奏更快、更精彩！
+            </p>
+            <p class="explanation-text">
+                这个规则是丹尼 (Danny Biasone) 在1954年提出的，他希望通过限制每次进攻的时间来增加比赛的投篮次数和观赏性。
+            </p>
+        </div>
+
+        <div class="content-card" style="animation-delay: 0.2s;">
+            <h2 class="question-title">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" /></svg>
+                问题一：24秒是多少分钟呢？ (思考过程全解析)
+            </h2>
+            <p class="explanation-text">
+                我们需要把24秒转换成以“分”为单位的小数。
+                <br>关键信息：<strong>1 分钟 = 60 秒</strong>。
+            </p>
+            <button id="q1Button" class="interactive-button">开始逐步思考与计算</button>
+            <div id="q1Answer" class="answer-content">
+                <div class="thinking-process-item" id="q1_step1">
+                    <strong>思考步骤1：理解问题</strong>
+                    <p>我们要把“秒”变成“分钟”。因为1分钟有60秒，所以24秒肯定是不到1分钟的，它只是1分钟的“一部分”。</p>
+                </div>
+                <div class="thinking-process-item" id="q1_step2">
+                    <strong>思考步骤2：建立分数关系</strong>
+                    <p>24秒是60秒中的一部分，我们可以用分数来表示这个关系： $\frac{24}{60}$ 分钟。
+                    <br>想象一个长条代表1分钟 (60秒)，我们取了其中的24秒：</p>
+                    <div class="fraction-bar-container">
+                        <div id="q1_fraction_bar" class="fraction-bar-fill"></div>
+                    </div>
+                    <p id="q1_fraction_text" class="text-sm text-center text-indigo-700 font-semibold"></p>
+                </div>
+                <div class="thinking-process-item" id="q1_step3">
+                    <strong>思考步骤3：化简分数（让数字更简单）</strong>
+                    <p>分数 $\frac{24}{60}$ 可以化简。我们要找到24和60的最大公因数。
+                    <br>试着找找看：它们都能被2整除，也能被3、4、6、12整除。12是最大的！</p>
+                    <div id="q1_simplification_steps">
+                        </div>
+                </div>
+                <div class="thinking-process-item" id="q1_step4">
+                    <strong>思考步骤4：分数转小数（题目要求）</strong>
+                    <p>现在我们得到了最简分数 $\frac{2}{5}$。要把分数转换成小数，我们用分子除以分母：
+                    <br>$2 \div 5 = ?$</p>
+                    <p id="q1_division_result" class="mt-2 text-lg font-bold text-emerald-700"></p>
+                </div>
+                <p class="answer-text" id="q1_final_answer" style="opacity:0; transition: opacity 0.5s ease-in 0.5s;">所以，24秒是 0.4 分。</p>
+            </div>
+        </div>
+
+        <div class="content-card" style="animation-delay: 0.3s;">
+            <h2 class="question-title">
+                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" /></svg>
+                问题二：0.4 这个小数的计数单位是什么？
+            </h2>
+            <p class="explanation-text">
+                小数的“计数单位”指的是这个小数最右边一位代表的是什么。
+            </p>
+            <button id="q2Button" class="interactive-button">探索计数单位</button>
+            <div id="q2Answer" class="answer-content">
+                <div class="thinking-process-item" id="q2_step1">
+                    <strong>思考步骤1：观察小数的位数</strong>
+                    <p>我们的小数是 <strong>0.4</strong>。小数点后面有几位数字呢？只有一位，就是数字“4”。</p>
+                </div>
+                <div class="thinking-process-item" id="q2_step2">
+                    <strong>思考步骤2：理解小数位代表的意义</strong>
+                    <p> - 小数点后第一位，我们称之为“十分位”，它的计数单位是“十分之一”（也就是0.1）。
+                    <br> - 如果是小数点后第二位，比如0.05，那叫“百分位”，计数单位是“百分之一”（0.01）。</p>
+                </div>
+                <div class="thinking-process-item" id="q2_step3">
+                    <strong>思考步骤3：确定0.4的计数单位</strong>
+                    <p>因为0.4的小数点后只有一位，在十分位上，所以它的计数单位就是“十分之一”。</p>
+                    <p class="mt-2">我们可以把0.4想象成把“1”分成了10小份，我们取了其中的4份。每一小份就是0.1。</p>
+                    <div class="text-2xl font-bold text-center my-4">
+                        0 . <span id="q2_highlight_digit" class="text-blue-600 p-1 rounded bg-blue-100 transition-all duration-500">4</span>
+                        <p id="q2_unit_explanation" class="text-sm font-normal text-gray-600 mt-1 opacity-0 transition-opacity duration-500"> (这里的 "4" 在十分位上)</p>
+                    </div>
+                </div>
+                <p class="answer-text" id="q2_final_answer" style="opacity:0; transition: opacity 0.5s ease-in 0.5s;">所以，0.4 的计数单位是 <strong>十分之一</strong> (或写作 <strong>0.1</strong>)。</p>
+            </div>
+        </div>
+
+        <div class="content-card" style="animation-delay: 0.4s;">
+            <h2 class="question-title">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" /></svg>
+                问题三：再添上多少个这样的计数单位 (0.1) 就等于1？
+            </h2>
+            <p class="explanation-text">
+                我们现在有0.4，它表示有4个0.1。我们的目标是凑成1。
+                <br>关键信息： <strong>1 等于 10 个 0.1</strong> (因为 $1 = \frac{10}{10}$)。
+            </p>
+            <p class="explanation-text"><strong>可视化思考：</strong> 想象我们有一个可以放10个小方块的盒子 (代表整数“1”)，每个小方块代表0.1。</p>
+            <div class="unit-block-container" id="unitBlocks">
+                </div>
+            <button id="q3Button" class="interactive-button">开始添加方块看看</button>
+            <div id="q3Answer" class="answer-content">
+                <div class="thinking-process-item" id="q3_step1">
+                    <strong>思考步骤1：我们现在有多少？</strong>
+                    <p>我们有0.4，这相当于已经有 <strong>4个</strong> 0.1的小方块被填满了。</p>
+                </div>
+                <div class="thinking-process-item" id="q3_step2">
+                    <strong>思考步骤2：我们的目标是多少？</strong>
+                    <p>我们的目标是凑成“1”。因为1等于10个0.1，所以我们的目标是填满全部 <strong>10个</strong> 小方块。</p>
+                </div>
+                <div class="thinking-process-item" id="q3_step3">
+                    <strong>思考步骤3：还差多少？</strong>
+                    <p>要从4个方块变成10个方块，我们还需要： $10 - 4 = 6$ 个方块。</p>
+                    <p>或者用小数计算：目标是1，我们有0.4，还差 $1 - 0.4 = 0.6$。
+                    <br>因为每个方块是0.1，所以0.6里面有 $0.6 \div 0.1 = 6$ 个方块。</p>
+                </div>
+                <p class="answer-text" id="q3_final_answer" style="opacity:0; transition: opacity 0.5s ease-in 0.5s;">所以，再添上 <strong>6</strong> 个这样的计数单位 (0.1) 就等于1。</p>
+            </div>
+        </div>
+
+        <footer class="text-center mt-12 mb-8">
+            <p class="text-slate-500 text-sm">希望这个交互式讲解能帮助你更好地理解数学的思考过程！</p>
+        </footer>
+    </div>
+
+    <div id="messageBoxOverlay" class="message-box-overlay">
+        <div class="message-box">
+            <h3 id="messageBoxTitle">提示</h3>
+            <p id="messageBoxText">这里是消息内容。</p>
+            <button id="messageBoxButton">好的</button>
+        </div>
+    </div>
+
+    <script>
+        function showMessage(title, text) {
+            document.getElementById('messageBoxTitle').textContent = title;
+            document.getElementById('messageBoxText').textContent = text;
+            document.getElementById('messageBoxOverlay').classList.add('visible');
+        }
+        document.getElementById('messageBoxButton').addEventListener('click', () => {
+            document.getElementById('messageBoxOverlay').classList.remove('visible');
+        });
+
+        window.MathJax = {
+            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
+            svg: { fontCache: 'global' },
+            startup: { ready: () => { MathJax.startup.defaultReady(); } }
+        };
+
+        function typesetMath(element) {
+            if (typeof MathJax !== 'undefined' && MathJax.typesetPromise) {
+                MathJax.typesetPromise([element]).catch((err) => console.error('MathJax typesetting error:', err));
+            }
+        }
+
+        function animateThinkingStep(stepElement, delay = 0) {
+            setTimeout(() => {
+                stepElement.classList.add('visible');
+            }, delay);
+        }
+        
+        function animateFinalAnswer(answerElement, delay = 0) {
+             setTimeout(() => {
+                answerElement.style.opacity = '1';
+            }, delay);
+        }
+
+        // 问题一逻辑
+        const q1Button = document.getElementById('q1Button');
+        const q1Answer = document.getElementById('q1Answer');
+        q1Button.dataset.defaultText = '开始逐步思考与计算';
+        q1Button.addEventListener('click', () => {
+            const isNowVisible = !q1Answer.classList.contains('visible');
+            q1Answer.classList.toggle('visible');
+            q1Button.textContent = isNowVisible ? '隐藏思考过程' : q1Button.dataset.defaultText;
+
+            if (isNowVisible) {
+                typesetMath(q1Answer);
+                let delay = 0;
+                animateThinkingStep(document.getElementById('q1_step1'), delay); delay += 700;
+                
+                animateThinkingStep(document.getElementById('q1_step2'), delay); 
+                setTimeout(() => {
+                    const bar = document.getElementById('q1_fraction_bar');
+                    const barText = document.getElementById('q1_fraction_text');
+                    bar.style.width = (24/60)*100 + '%';
+                    bar.textContent = '24/60';
+                    barText.textContent = '进度条显示了60份中的24份';
+                }, delay + 200);
+                delay += 1500; // 等待条形图动画
+
+                animateThinkingStep(document.getElementById('q1_step3'), delay);
+                const simplificationDiv = document.getElementById('q1_simplification_steps');
+                simplificationDiv.innerHTML = ''; // 清空旧内容
+                const steps = [
+                    {text: "首先，我们观察到24和60都是偶数，可以同时除以2：", result: "$\\frac{24 \\div 2}{60 \\div 2} = \\frac{12}{30}$"},
+                    {text: "继续，12和30还是偶数，再除以2：", result: "$\\frac{12 \\div 2}{30 \\div 2} = \\frac{6}{15}$"},
+                    {text: "现在6和15都能被3整除：", result: "$\\frac{6 \\div 3}{15 \\div 3} = \\frac{2}{5}$"},
+                    {text: "$\\frac{2}{5}$ 是最简分数了！", result: ""}
+                ];
+                steps.forEach((step, index) => {
+                    setTimeout(() => {
+                        const p = document.createElement('p');
+                        p.className = 'simplification-step';
+                        p.innerHTML = step.text + (step.result ? ` <span class="font-bold">${step.result}</span>` : '');
+                        simplificationDiv.appendChild(p);
+                        typesetMath(p);
+                    }, delay + index * 1200);
+                });
+                delay += steps.length * 1200;
+
+
+                animateThinkingStep(document.getElementById('q1_step4'), delay);
+                setTimeout(() => {
+                    document.getElementById('q1_division_result').innerHTML = "$2 \\div 5 = 0.4$";
+                    typesetMath(document.getElementById('q1_division_result'));
+                }, delay + 500);
+                delay += 1000;
+                
+                animateFinalAnswer(document.getElementById('q1_final_answer'), delay);
+
+            } else { // 如果是隐藏，则重置动画相关的元素
+                q1Answer.querySelectorAll('.thinking-process-item').forEach(el => el.classList.remove('visible'));
+                document.getElementById('q1_fraction_bar').style.width = '0%';
+                document.getElementById('q1_fraction_bar').textContent = '';
+                document.getElementById('q1_fraction_text').textContent = '';
+                document.getElementById('q1_simplification_steps').innerHTML = '';
+                document.getElementById('q1_division_result').innerHTML = '';
+                document.getElementById('q1_final_answer').style.opacity = '0';
+            }
+        });
+
+        // 问题二逻辑
+        const q2Button = document.getElementById('q2Button');
+        const q2Answer = document.getElementById('q2Answer');
+        q2Button.dataset.defaultText = '探索计数单位';
+        q2Button.addEventListener('click', () => {
+            const isNowVisible = !q2Answer.classList.contains('visible');
+            q2Answer.classList.toggle('visible');
+            q2Button.textContent = isNowVisible ? '隐藏探索过程' : q2Button.dataset.defaultText;
+            if (isNowVisible) {
+                typesetMath(q2Answer);
+                let delay = 0;
+                animateThinkingStep(document.getElementById('q2_step1'), delay); delay += 700;
+                animateThinkingStep(document.getElementById('q2_step2'), delay); delay += 700;
+                animateThinkingStep(document.getElementById('q2_step3'), delay); 
+                setTimeout(() => {
+                    document.getElementById('q2_highlight_digit').style.transform = 'scale(1.5)';
+                    document.getElementById('q2_highlight_digit').style.fontWeight = 'bold';
+                    document.getElementById('q2_unit_explanation').style.opacity = '1';
+                }, delay + 300);
+                delay += 1000;
+                animateFinalAnswer(document.getElementById('q2_final_answer'), delay);
+            } else {
+                 q2Answer.querySelectorAll('.thinking-process-item').forEach(el => el.classList.remove('visible'));
+                 document.getElementById('q2_highlight_digit').style.transform = 'scale(1)';
+                 document.getElementById('q2_highlight_digit').style.fontWeight = 'normal';
+                 document.getElementById('q2_unit_explanation').style.opacity = '0';
+                 document.getElementById('q2_final_answer').style.opacity = '0';
+            }
+        });
+
+        // 问题三逻辑
+        const q3Button = document.getElementById('q3Button');
+        const q3Answer = document.getElementById('q3Answer');
+        const unitBlocksContainer = document.getElementById('unitBlocks');
+        const totalUnits = 10;
+        const initialFilledUnits = 4;
+        q3Button.dataset.defaultText = '开始添加方块看看';
+
+        function renderUnitBlocks(isAnswerRevealed = false, animateTransition = false) {
+            unitBlocksContainer.innerHTML = ''; 
+            for (let i = 0; i < totalUnits; i++) {
+                const block = document.createElement('div');
+                block.classList.add('unit-block');
+                block.textContent = '0.1';
+
+                if (i < initialFilledUnits) {
+                    block.classList.add('filled');
+                } else if (isAnswerRevealed && i >= initialFilledUnits) {
+                    if (animateTransition) { // 只有在明确需要动画时才立即添加added
+                        block.classList.add('added');
+                    } else { // 否则先是目标空块
+                         block.classList.add('target-empty');
+                    }
+                } else { // 初始未填充的目标块
+                     block.classList.add('target-empty');
+                }
+                unitBlocksContainer.appendChild(block);
+                void block.offsetWidth; 
+                setTimeout(() => { 
+                    block.classList.add('visible');
+                    // 如果是揭示答案并且是需要填充的块，在 'visible' 动画后触发颜色变化
+                    if (isAnswerRevealed && animateTransition && i >= initialFilledUnits) {
+                        setTimeout(() => {
+                            block.classList.remove('target-empty'); // 移除空块样式
+                            block.classList.add('added'); // 添加填充后样式
+                        }, 500); // 延迟一点，让入场动画先完成
+                    }
+                }, i * 70 + 50); 
+            }
+        }
+        
+        renderUnitBlocks(false); // 初始渲染，不揭示答案
+
+        q3Button.addEventListener('click', () => {
+            const isNowVisible = !q3Answer.classList.contains('visible');
+            q3Answer.classList.toggle('visible');
+            q3Button.textContent = isNowVisible ? '隐藏思考过程' : q3Button.dataset.defaultText;
+
+            if (isNowVisible) {
+                renderUnitBlocks(true, true); // 揭示答案，并动画填充过程
+                typesetMath(q3Answer);
+                let delay = 0;
+                animateThinkingStep(document.getElementById('q3_step1'), delay); delay += 700;
+                animateThinkingStep(document.getElementById('q3_step2'), delay); delay += 700;
+                animateThinkingStep(document.getElementById('q3_step3'), delay); delay += 700;
+                animateFinalAnswer(document.getElementById('q3_final_answer'), delay);
+            } else {
+                renderUnitBlocks(false); // 隐藏时，恢复初始状态
+                q3Answer.querySelectorAll('.thinking-process-item').forEach(el => el.classList.remove('visible'));
+                document.getElementById('q3_final_answer').style.opacity = '0';
+            }
+        });
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            // 卡片入场动画延迟已通过内联style设置
+        });
+
+    </script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+</body>
+</html>
