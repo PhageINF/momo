@@ -847,60 +847,60 @@
             }
 
             // 填充并动画步骤4 (分数化简)
-            if(step4P && step4Content) {
-                 step4Content.innerHTML = `刚才的除法 $${seconds} \\div 60$ 其实就是分数 $\\frac{${seconds}}{60}$。我们可以化简这个分数：<br>
-                 <strong>思路1:</strong> 直接找最大公因数 (如果容易找)。例如 $\\frac{24}{60} = \\frac{24 \\div 12}{60 \\div 12} = \\frac{2}{5}$。<br>
-                 <strong>思路2:</strong> 先约分成小数友好的分母 (如10, 100)。例如 $\\frac{24}{60} = \\frac{24 \\div 6}{60 \\div 6} = \\frac{4}{10}$。<br>
-                 <strong>思路3:</strong> 分解因数 $\\frac{24}{60} = \\frac{\\cancel{6} \\times 4}{\\cancel{6} \\times 10} = \\frac{4}{10}$。<br>
-                 化简后的分数 $\\frac{2}{5}$ 或 $\\frac{4}{10}$ 都等于小数 <span class="result-value">${(seconds/60).toFixed(3)}</span>。`;
-                step4P.innerHTML = `<strong>第4步：(思考) 分数形式与化简</strong>` + step4Content.innerHTML; // Combine title and content
-                step4P.classList.remove('hidden');
-                // typesetMath(step4P); 
-                animateElement(step4P, delay);
-                delay += 2500; 
-            }
+            // if(step4P && step4Content) {
+            //      step4Content.innerHTML = `刚才的除法 $${seconds} \\div 60$ 其实就是分数 $\\frac{${seconds}}{60}$。我们可以化简这个分数：<br>
+            //      <strong>思路1:</strong> 直接找最大公因数 (如果容易找)。例如 $\\frac{24}{60} = \\frac{24 \\div 12}{60 \\div 12} = \\frac{2}{5}$。<br>
+            //      <strong>思路2:</strong> 先约分成小数友好的分母 (如10, 100)。例如 $\\frac{24}{60} = \\frac{24 \\div 6}{60 \\div 6} = \\frac{4}{10}$。<br>
+            //      <strong>思路3:</strong> 分解因数 $\\frac{24}{60} = \\frac{\\cancel{6} \\times 4}{\\cancel{6} \\times 10} = \\frac{4}{10}$。<br>
+            //      化简后的分数 $\\frac{2}{5}$ 或 $\\frac{4}{10}$ 都等于小数 <span class="result-value">${(seconds/60).toFixed(3)}</span>。`;
+            //     step4P.innerHTML = `<strong>第4步：(思考) 分数形式与化简</strong>` + step4Content.innerHTML; // Combine title and content
+            //     step4P.classList.remove('hidden');
+            //     // typesetMath(step4P); 
+            //     animateElement(step4P, delay);
+            //     delay += 2500; 
+            // }
 
             // 填充并动画步骤5 (结果解释和可视化)
-             if(step5P && step5Content && barContainer && bar && explanation) {
-                 step5Content.innerHTML = `计算结果是 ${minutesString} 分钟。
-                 ${fullMinutes > 0 ? `这表示有 <span class="text-blue-600 font-bold">${fullMinutes}</span> 个完整的分钟。` : ''}
-                 ${fractionalMinute > 0.00001 ? `小数点后面的 <span class="text-purple-600 font-bold">${(fractionalMinute).toFixed(3)}</span> 代表不足一个完整分钟的部分。` : (seconds > 0 ? '这正好是整数分钟。' : '也就是0分钟。')}
-                `;
-                step5P.innerHTML = `<strong>第5步：理解结果</strong>` + step5Content.innerHTML;
-                step5P.classList.remove('hidden');
-                animateElement(step5P, delay);
-                delay += 1000; 
+            //  if(step5P && step5Content && barContainer && bar && explanation) {
+            //      step5Content.innerHTML = `计算结果是 ${minutesString} 分钟。
+            //      ${fullMinutes > 0 ? `这表示有 <span class="text-blue-600 font-bold">${fullMinutes}</span> 个完整的分钟。` : ''}
+            //      ${fractionalMinute > 0.00001 ? `小数点后面的 <span class="text-purple-600 font-bold">${(fractionalMinute).toFixed(3)}</span> 代表不足一个完整分钟的部分。` : (seconds > 0 ? '这正好是整数分钟。' : '也就是0分钟。')}
+            //     `;
+            //     step5P.innerHTML = `<strong>第4步：理解结果</strong>` + step5Content.innerHTML;
+            //     step5P.classList.remove('hidden');
+            //     animateElement(step5P, delay);
+            //     delay += 1000; 
 
-                 // 处理进度条
-                 if (fractionalMinute > 0.00001) {
-                     barContainer.classList.remove('hidden'); 
-                     bar.style.width = '0%'; 
-                     explanation.textContent = ''; 
+            //      // 处理进度条
+            //      if (fractionalMinute > 0.00001) {
+            //          barContainer.classList.remove('hidden'); 
+            //          bar.style.width = '0%'; 
+            //          explanation.textContent = ''; 
 
-                     setTimeout(() => { 
-                         animateElement(barContainer, 0); 
-                         setTimeout(() => { 
-                             bar.style.width = (fractionalMinute * 100) + '%';
-                             let percentageString = (fractionalMinute * 100).toFixed(1);
-                             if (parseFloat(percentageString) === Math.floor(parseFloat(percentageString))) {
-                                  percentageString = Math.floor(parseFloat(percentageString)).toString();
-                             }
-                             bar.textContent = `${percentageString}%`;
+            //          setTimeout(() => { 
+            //              animateElement(barContainer, 0); 
+            //              setTimeout(() => { 
+            //                  bar.style.width = (fractionalMinute * 100) + '%';
+            //                  let percentageString = (fractionalMinute * 100).toFixed(1);
+            //                  if (parseFloat(percentageString) === Math.floor(parseFloat(percentageString))) {
+            //                       percentageString = Math.floor(parseFloat(percentageString)).toString();
+            //                  }
+            //                  bar.textContent = `${percentageString}%`;
 
-                             if (fullMinutes > 0) {
-                                 explanation.textContent = `(可视化：相当于 ${fullMinutes} 个完整分钟 + 下一分钟的 ${percentageString}%)`;
-                             } else {
-                                 explanation.textContent = `(可视化：相当于下一分钟的 ${percentageString}%)`;
-                             }
-                         }, 500); 
-                     }, delay); 
-                     delay += 1200; 
-                 } else {
-                     barContainer.classList.add('hidden'); 
-                     explanation.textContent = ''; 
-                     delay += 500; 
-                 }
-             }
+            //                  if (fullMinutes > 0) {
+            //                      explanation.textContent = `(可视化：相当于 ${fullMinutes} 个完整分钟 + 下一分钟的 ${percentageString}%)`;
+            //                  } else {
+            //                      explanation.textContent = `(可视化：相当于下一分钟的 ${percentageString}%)`;
+            //                  }
+            //              }, 500); 
+            //          }, delay); 
+            //          delay += 1200; 
+            //      } else {
+            //          barContainer.classList.add('hidden'); 
+            //          explanation.textContent = ''; 
+            //          delay += 500; 
+            //      }
+            //  }
 
 
             // 填充并动画最终答案
